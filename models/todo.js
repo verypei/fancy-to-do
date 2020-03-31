@@ -38,11 +38,14 @@ module.exports = (sequelize, DataTypes) => {
         msg:"date can't empty and the format should yyyy/mm/dd"
       }
     }
-  }
+  },
+  userId:DataTypes.INTEGER
 },
+
 {sequelize});
   toDo.associate = function(models) {
     // associations can be defined here
+    toDo.belongsTo(models.User,{foreignkey:"userId"})
   };
   return toDo;
 };

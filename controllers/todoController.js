@@ -24,13 +24,15 @@ class Controller{
     }
 
     static addTodo(req,res){
-        console.log("in")
+        // console.log(req.userData,"========")
         let obj={
             title:req.body.title,
             description:req.body.description,
             status:req.body.status,
-            due_date:req.body.due_date
+            due_date:req.body.due_date,
+            userId:req.userData.id//dari authentication decoded
         }
+        console.log(obj,"?/////////////////////////")
         toDo.create(obj)
         .then(data=>{
             res.status(201).json({data})
