@@ -24,11 +24,12 @@ class Controller{
     }
 
     static addTodo(req,res){
+        console.log("in")
         let obj={
-            title,
-            description,
-            status:false,
-            due_date
+            title:req.body.title,
+            description:req.body.description,
+            status:req.body.status,
+            due_date:req.body.due_date
         }
         toDo.create(obj)
         .then(data=>{
@@ -57,7 +58,7 @@ class Controller{
             status:req.body.status,
             due_date:req.body.due_date
         }
-        toDo.findAll(newData,{where:{id:id}})
+        toDo.update(newData,{where:{id:id}})
         .then(data=>{
             if(data){
                 res.status(200).json(newData)

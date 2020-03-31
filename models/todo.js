@@ -1,5 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
+  
   const Model = sequelize.Sequelize.Model
   
   class toDo extends Model{}
