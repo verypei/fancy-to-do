@@ -4,11 +4,11 @@
 const jwt = require("jsonwebtoken");
 
 function Authentication(req,res,next){//selalu 3 parameter,,yg next adalah call back
-    console.log(req.headers,"====================")
+    // console.log(req.headers,"====================")
     let token = req.headers.token//req.headers adalah input dari postman Headers
     try {
         var decoded = jwt.verify(token, 'secret');//keyword secret harus sama dengan jwt d controller
-        console.log(decoded,"[][]][][][]][]][][")
+        // console.log(decoded,"[][]][][][]][]][][")
         req.userData=decoded//req.userData = id,email,username
         next()  
       } catch(err) {

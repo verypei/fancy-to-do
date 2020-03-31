@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended:false}));//express method that to recognize
 app.use("/todos",todoRouter);
 app.use("/users",userRouter);
 app.use("/weather",weatherRouter);
-app.use(express.json())//express method that to recognize the incoming request object as JSON object
+app.use(express.json());//express method that to recognize the incoming request object as JSON object
 
 app.listen(port,()=>{
     console.log(`Listening to this port ${port}`)
