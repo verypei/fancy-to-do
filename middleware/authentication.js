@@ -1,6 +1,6 @@
 //ketika kita login kita mendapatkan token,lalu token tersebut dimassukan ke req.headers,lalu dgn jwt verify 
 // kita kan mendaptkan user data \
-
+require("dotenv").config()
 const jwt = require("jsonwebtoken");
 
 const Authentication = (req,res,next)=>{
@@ -10,7 +10,7 @@ const Authentication = (req,res,next)=>{
         res.status(404).json({message:"token not found"})
       }
       else{
-        const decoded  = jwt.verify(token,"secret")//harus sama dengn jwt sign di controller user
+        const decoded  = jwt.verify(token,process.env.JWT_SECRET)//harus sama dengn jwt sign di controller user
         //jwt.verify untuk penyamaan token yg diinput di postman headers sama dengan database
         req.user=decoded
         next()//fungsi selanjutnya

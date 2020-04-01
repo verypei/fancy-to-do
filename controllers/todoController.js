@@ -1,18 +1,19 @@
+require("dotenv").config()
 const {Todo} = require("../models");
+const axios = require("axios")
 
 class Controller{
 
     static getTodos(req,res){
-        // console.log
-        // console.log(req.user.id,"==================")
+
         let option={where:{UserId:req.user.id}}
         Todo.findAll(option)//req.user.id adalah token
         .then(data=>{
-            // console.log(data,"/////////////////")
+            
             res.status(200).json({data})
         })
         .catch(err=>{
-            // console.log("masuk sini gtu ajaaaa")
+            
             res.status(500).json(err)
         })
     }
@@ -29,7 +30,7 @@ class Controller{
     }
 
     static addTodo(req,res){
-        // console.log(req.userData,"========")
+        
         let obj={
             title:req.body.title,
             description:req.body.description,
@@ -37,7 +38,7 @@ class Controller{
             due_date:req.body.due_date,
             UserId:req.user.id//dari authentication decoded
         }
-        // console.log(obj,"?/////////////////////////")
+        
         Todo.create(obj)
         .then(data=>{
             res.status(201).json({data})
@@ -106,5 +107,36 @@ class Controller{
             res.status(500).json(err)
         })
     }
+
+    static weather(req,res){
+        axios({
+            method:"GET",
+            url:`https://api.openweathermap.org/data/2.5/weather?q=Jakarta,id&appid=${process.env.API_WEATHER}`
+        })
+            .then(function(response){
+                // handle success
+                res.status(200).json(response.data)
+            })
+            .catch(function(error){
+                // handle error
+                res.status(404).json(error)
+            })
+    }
+
+    static calendar(req,res){
+        axios({
+            method:"GET",
+            url:`https://calendarific.com/api/v2/holidays?&api_key=${process.env.API_CALENDAR}&country=ID&year=2020`})
+            .then(function(response){
+                // handle success
+                // console
+                res.status(200).json(response.data)
+            })
+            .catch(function(error){
+                // handle error
+                res.status(404).json(error)
+            })
+    }
 }
 module.exports=Controller;
+

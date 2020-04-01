@@ -1,3 +1,4 @@
+require("dotenv").config()
 const {User} = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
@@ -34,7 +35,7 @@ class Controller{
                 res.status(400).json('email wrong')
             } else {
                 if(bcrypt.compareSync(req.body.password, data.password)){
-                    let token = jwt.sign({id: data.id, username:data.username, email: data.email}, 'secret')
+                    let token = jwt.sign({id: data.id, username:data.username, email: data.email}, process.env.JWT_SECRET)
                     res.status(200).json({token: token})
                 } else {
                     res.status(400).json('password wrong')
