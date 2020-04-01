@@ -29,6 +29,7 @@ class Controller{
             }
         })
         .then(data=>{
+            // console.log(data,"==========================")
             if(!data){
                 res.status(400).json('email wrong')
             } else {

@@ -1,9 +1,6 @@
 'use strict';
-
-const bcrypt = require('bcrypt');
-
+const bcrypt = require("bcrypt")
 module.exports = (sequelize, DataTypes) => {
-  
   const Model = sequelize.Sequelize.Model
 
   class User extends Model{}
@@ -13,37 +10,36 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       validate:{
         notEmpty:{
-          msg:"email should be filled"
+          msg:"Email can't be empty"
         }
       }
     },
-    username:{
+    username: {
       type:DataTypes.STRING,
       validate:{
         notEmpty:{
-          msg:"username should be filled"
+          msg:"username can't be empty"
         }
       }
     },
-    password:{
+    password: {
       type:DataTypes.STRING,
       validate:{
         notEmpty:{
-          msg:"password can't be empty"
+          msg:"Password can't be empty"
         }
       }
     }
-  }, {
-      hooks:{
-        beforeCreate(instance, options){
-          let salt = bcrypt.genSaltSync(8);//pin round sebanyak 10 kali
-          let hash = bcrypt.hashSync(instance.password, salt);//hashing instance pasword berdasarkan salt
-          instance.password = hash
-        }
-  },sequelize})
+  }, {hooks: {
+    beforeCreate: (instance, options) => {
+      let salt = bcrypt.genSaltSync(8)
+      let hash = bcrypt.hashSync(instance.password,salt)
+      instance.password=hash
+    }
+  },sequelize});
   User.associate = function(models) {
     // associations can be defined here
-    User.hasMany(models.toDo,{foreignkey:"userId"})
+    User.hasMany(models.Todo,{foreignKey:"UserId"})
   };
   return User;
 };

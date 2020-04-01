@@ -1,20 +1,25 @@
-const {toDo} = require("../models");
+const {Todo} = require("../models");
 
 class Controller{
 
     static getTodos(req,res){
-        toDo.findAll()
+        // console.log
+        // console.log(req.user.id,"==================")
+        let option={where:{UserId:req.user.id}}
+        Todo.findAll(option)//req.user.id adalah token
         .then(data=>{
+            // console.log(data,"/////////////////")
             res.status(200).json({data})
         })
         .catch(err=>{
+            // console.log("masuk sini gtu ajaaaa")
             res.status(500).json(err)
         })
     }
 
     static getTodoId(req,res){
         let id = req.params.id
-        toDo.findAll({where:{id:id}})
+        Todo.findAll({where:{id:id}})
         .then(data=>{
             res.status(200).json({data})
         })
@@ -30,10 +35,10 @@ class Controller{
             description:req.body.description,
             status:req.body.status,
             due_date:req.body.due_date,
-            userId:req.userData.id//dari authentication decoded
+            UserId:req.user.id//dari authentication decoded
         }
-        console.log(obj,"?/////////////////////////")
-        toDo.create(obj)
+        // console.log(obj,"?/////////////////////////")
+        Todo.create(obj)
         .then(data=>{
             res.status(201).json({data})
         })
@@ -60,7 +65,7 @@ class Controller{
             status:req.body.status,
             due_date:req.body.due_date
         }
-        toDo.update(newData,{where:{id:id}})
+        Todo.update(newData,{where:{id:id}})
         .then(data=>{
             if(data){
                 res.status(200).json(newData)
@@ -88,7 +93,7 @@ class Controller{
 
     static deleteToDo(req,res){
         let id=req.params.id
-        toDo.destroy({where:{id:id}})
+        Todo.destroy({where:{id:id}})
         .then(data=>{
             if(data){
                 res.status(201).json({message:"Data has been removed"})

@@ -3,16 +3,21 @@
 
 const jwt = require("jsonwebtoken");
 
-function Authentication(req,res,next){//selalu 3 parameter,,yg next adalah call back
-    // console.log(req.headers,"====================")
-    let token = req.headers.token//req.headers adalah input dari postman Headers
-    try {
-        var decoded = jwt.verify(token, 'secret');//keyword secret harus sama dengan jwt d controller
-        // console.log(decoded,"[][]][][][]][]][][")
-        req.userData=decoded//req.userData = id,email,username
-        next()  
-      } catch(err) {
-        // err
+const Authentication = (req,res,next)=>{
+  try{
+    const {token}=req.headers
+      if(!token){
+        res.status(404).json({message:"token not found"})
       }
+      else{
+        const decoded  = jwt.verify(token,"secret")//harus sama dengn jwt sign di controller user
+        //jwt.verify untuk penyamaan token yg diinput di postman headers sama dengan database
+        req.user=decoded
+        next()//fungsi selanjutnya
+      }
+  }
+  catch(error){
+      res.status(400).json({message:"forbiden access"})
+  }
 }
 module.exports=Authentication

@@ -1,25 +1,23 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  
   const Model = sequelize.Sequelize.Model
+
+  class Todo extends Model{}
   
-  class toDo extends Model{}
-  
-  toDo.init(
-  {
-    title:{
+  Todo.init({
+    title: {
       type:DataTypes.STRING,
       validate:{
         notEmpty:{
-          msg:"title should be filled!!!"
+          msg:"Title can't be empty"
         }
       }
     },
-    description:{
+    description: {
       type:DataTypes.STRING,
       validate:{
         notEmpty:{
-          msg:"description shoud be filled"
+          msg:"Description can't be empty"
         }
       }
     },
@@ -27,25 +25,22 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.BOOLEAN,
       validate:{
         notEmpty:{
-          msg:"status should be filled"
+          msg:"Status can't be empty"
         }
       }
-  },
-  due_date:{
-    type:DataTypes.DATEONLY,
-    validate:{
-      notEmpty:{
-        msg:"date can't empty and the format should yyyy/mm/dd"
+    },
+    due_date: {
+      type:DataTypes.DATEONLY,
+      validate:{
+        notEmpty:{
+          msg:"Due_date can't be empty"
+        }
       }
     }
-  },
-  userId:DataTypes.INTEGER
-},
-
-{sequelize});
-  toDo.associate = function(models) {
+  },{sequelize}) 
+  Todo.associate = function(models) {
     // associations can be defined here
-    toDo.belongsTo(models.User,{foreignkey:"userId"})
+    Todo.belongsTo(models.User,{foreignKey:"UserId"})
   };
-  return toDo;
+  return Todo;
 };

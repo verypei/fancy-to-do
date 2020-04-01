@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     
-      return queryInterface.bulkInsert('toDos', [
+      return queryInterface.bulkInsert('Todos', [
       {
         title: 'created web scheme',
         description:'important level 1',
