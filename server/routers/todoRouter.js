@@ -18,5 +18,4 @@ router.put("/:id",authentication,authorization,todoController.update);
 
 router.delete("/:id",authentication,authorization,todoController.deleteToDo);
 
-
 module.exports=router;

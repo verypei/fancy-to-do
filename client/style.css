@@ -1,0 +1,8 @@
+.container{
+    display:none;
+}
+
+/*error message color*/
+h2{
+    color: red;
+}

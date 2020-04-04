@@ -5,7 +5,7 @@ const axios = require("axios")
 class Controller{
 
     static getTodos(req,res){
-
+        // console.log("mauk sini")
         let option={where:{UserId:req.user.id}}
         Todo.findAll(option)//req.user.id adalah token
         .then(data=>{
@@ -59,6 +59,7 @@ class Controller{
     }
 
     static update(req,res){
+        console.log("update=========================")
         let id=req.params.id
         let newData={
             title:req.body.title,
