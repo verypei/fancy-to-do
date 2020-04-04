@@ -24,6 +24,7 @@ function todoShow(){
                 <button id="editButton" onclick=editTodos(${todo[i].id})>edit</button>
                 <button id="deleteButton" onclick=deleteTodos(${todo[i].id})>delete</button>
             </td>
+            <p id="confirm"></p>
             </tr>
             `)
         }
@@ -45,6 +46,7 @@ function deleteTodos(id){
     .done(response=>{
         $("#dataBaseRender").empty()
         todoShow()
+        $("#confirm").text("delete successfully")
     })
     .fail(err=>{
         $("#errorDelete").text("delete failed")
@@ -117,9 +119,13 @@ $("#edit-form").submit(()=>{
         data:obj
     })
     .done(response=>{
-        $("#editForm").hide()
+        
         $("#dataBaseRender").empty()
+        $("#editForm").hide()
+        $("#tableTodos").show()
+        // $("#confirm").text("edit successfully")
         todoShow()
+        console.log("////////////////////")
     })
     .fail(err=>{
         $("#errorEdit").text("edit failed")
@@ -150,6 +156,8 @@ $("#add-form").submit(()=>{
     })
     .done(data=>{
         // login();
+        $("#confirm").text("add successfully")
+
     })
     .fail(err=>{
         $("#errorRegister").text("register failed")

@@ -54,3 +54,27 @@ function register(){
     $("#loginForm").hide()
     $("#registerForm").show()
 }
+
+function onSignIn(googleUser) {
+    console.log("google ok")
+    var id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:3000/users/googleSignIn",
+        data:{
+            id_token
+        },
+    })
+    .done(function(response ){
+        // console.log(response)
+        localStorage.setItem("token",response.token)
+        $("#loginForm").hide()
+        $("#registerForm").hide()
+        $("#tableTodos").show()
+        
+        showTodo()
+    })
+    .fail(err=>{
+        console.log(err)
+    })
+  }
